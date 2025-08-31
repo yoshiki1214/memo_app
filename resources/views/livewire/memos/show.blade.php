@@ -9,9 +9,12 @@ state(['memo' => fn(Memo $memo) => $memo]);
 //編集ページにリダイレクト
 $edit = function(){
     return redirect()->route('memos.edit', $this->memo);
+};
 
-}
-
+$destory = function () {
+    $this->memo->delete();
+    return redirect()->route('memos.index');
+};
 
 ?>
 
@@ -21,4 +24,5 @@ $edit = function(){
     <p>{!! nl2br(e($memo->body)) !!}</p>
 
     <button wire:click="edit">編集する</button>
+    <button wire:click="destory" wire:confirm="本当に削除しますか？">削除する</button>
 </div>
